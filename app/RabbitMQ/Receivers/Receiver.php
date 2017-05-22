@@ -13,10 +13,17 @@ abstract class Receiver extends RabbitMQ
 
     public function listen()
     {
-        if(is_null($this->listenThread))
+        if(!is_null($this->queue))
         {
-            $this->listenThread = new ListenThread($this);
-            $this->listenThread->run();
+
+            if (is_null($this->listenThread)) {
+                $this->listenThread = new ListenThread($this);
+                $this->listenThread->run();
+            }
+        }
+        else
+        {
+            echo '[' . __CLASS__ . '] Queue is not defined, aborting listen operation';
         }
     }
 
