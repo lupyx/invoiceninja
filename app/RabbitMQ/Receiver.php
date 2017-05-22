@@ -5,12 +5,12 @@ namespace App\RabbitMQ;
 
 use PhpAmqpLib\Message\AMQPMessage;
 
-class Receiver extends RabbitMQ
+abstract class Receiver extends RabbitMQ
 {
-    public function receive(string $queue, callable $callback)
+    public function listen()
     {
-        $this->channel->queue_declare($queue, false, false, false, false);
-        $this->channel->basic_consume($queue, '', false, true, false, false, function(AMQPMessage $msg) use($callback) { $callback($msg); });
+        $this->channel->queue_declare($this->queue, false, false, false, false);
+        $this->channel->basic_consume($this->queue, '', false, true, false, false, function(AMQPMessage $msg) { $this->onReceive($msg); });
 
         while(count($this->channel->callbacks))
         {
@@ -18,4 +18,6 @@ class Receiver extends RabbitMQ
         }
 
     }
+
+    abstract function onReceive(AMQPMessage $msg);
 }

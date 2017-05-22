@@ -5,13 +5,12 @@ namespace App\RabbitMQ;
 
 use PhpAmqpLib\Message\AMQPMessage;
 
-class Sender extends RabbitMQ
+abstract class Sender extends RabbitMQ
 {
-    public function send(array $params)
+    public function send(array $data)
     {
-        $queue = $params['queue'];
-        $this->channel->queue_declare($queue, false, false, false, false);
-        $msg = new AMQPMessage(json_encode($params['data']['message']));
-        $this->channel->basic_publish($msg, '', $queue);
+        $this->channel->queue_declare($this->queue, false, false, false, false);
+        $msg = new AMQPMessage(json_encode($data['message']));
+        $this->channel->basic_publish($msg, '', $this->queue);
     }
 }

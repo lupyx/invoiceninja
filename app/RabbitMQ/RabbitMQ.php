@@ -10,6 +10,7 @@ abstract class RabbitMQ
 {
     protected $connection;
     protected $channel;
+    protected $queue;
 
     public function __construct()
     {
