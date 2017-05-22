@@ -1,8 +1,9 @@
 <?php
 // Created by lupix. All rights reserved.
 
-namespace App\RabbitMQ;
+namespace App\RabbitMQ\Senders;
 
+use App\RabbitMQ\RabbitMQ;
 use PhpAmqpLib\Message\AMQPMessage;
 
 abstract class Sender extends RabbitMQ
