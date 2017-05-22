@@ -3,6 +3,7 @@
 
 namespace App\RabbitMQ\Receivers;
 
+use App\Models\Currency;
 use App\Models\Traits\SingleInstance;
 use PhpAmqpLib\Message\AMQPMessage;
 
@@ -18,7 +19,11 @@ class FoodOrderReceiver extends Receiver
 
     function onReceive(AMQPMessage $msg)
     {
-        // TODO: Implement onReceive() method.
+       /* $data = json_decode($msg->body);
+        $currency = Currency::where('name', $data->currency)->first();
+
+        if(is_null($currency))
+            $currency = Currency::create(['name' => $currency]);*/
     }
 
 
