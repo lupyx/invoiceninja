@@ -10,7 +10,6 @@ use PhpAmqpLib\Message\AMQPMessage;
 abstract class Receiver extends RabbitMQ
 {
     protected $listenThread;
-    protected $isListening = false;
 
     public function listen()
     {
@@ -18,13 +17,12 @@ abstract class Receiver extends RabbitMQ
         {
             $this->listenThread = new ListenThread($this);
             $this->listenThread->run();
-            $this->isListening = true;
         }
     }
 
     public function isListening()
     {
-        return $this->isListening();
+        return !(is_null($this->listenThread)) && $this->listenThread->isRunning();
     }
 
     abstract function onReceive(AMQPMessage $msg);
