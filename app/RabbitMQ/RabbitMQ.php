@@ -31,6 +31,6 @@ abstract class RabbitMQ
 
     public function getChannel()
     {
-        return $this->getChannel();
+        return $this->channel;
     }
 }
