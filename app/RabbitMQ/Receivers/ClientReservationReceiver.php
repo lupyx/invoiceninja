@@ -16,7 +16,7 @@ class ClientReservationReceiver extends Receiver
 {
     use SingleInstance;
 
-    public function __construct()
+    protected function __construct()
     {
         parent::__construct();
         $this->queue = 'new_HMS_order';
