@@ -12,7 +12,7 @@ abstract class RabbitMQ
     protected $channel;
     protected $queue;
 
-    public function __construct()
+    protected function __construct()
     {
         $this->connection = new AMQPStreamConnection('10.3.51.37', 5672, 'invoiceninja', 'secret');
         $this->channel = $this->connection->channel();
@@ -22,5 +22,15 @@ abstract class RabbitMQ
     {
         $this->channel->close();
         $this->connection->close();
+    }
+
+    public function getQueue()
+    {
+        return $this->queue;
+    }
+
+    public function getChannel()
+    {
+        return $this->getChannel();
     }
 }
